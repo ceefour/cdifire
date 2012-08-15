@@ -18,5 +18,10 @@ public class Notify {
 	public void setSentTime(Date sentTime) {
 		this.sentTime = sentTime;
 	}
+
+	@Override
+	public String toString() {
+		return String.format("Notify [sentTime=%s]", sentTime);
+	}
 	
 }

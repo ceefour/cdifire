@@ -33,3 +33,5 @@ bc. eventBus.fire(new SpreadsheetDocument());
 
 There's no way to specialize the event? (other than explicitly typing the event, hence limiting
 ability to fire events dynamically.)
+
+Discussion: https://community.jboss.org/message/660495

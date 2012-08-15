@@ -20,5 +20,10 @@ public class Booking {
 	public void setQty(Double qty) {
 		this.qty = qty;
 	}
+
+	@Override
+	public String toString() {
+		return String.format("Booking [qty=%s]", qty);
+	}
 	
 }
