@@ -1,0 +1,35 @@
+h1. CDI Event Bus Problem
+
+Trying to use CDI Event Bus like Guava's EventBus:
+
+bc.. 	@Inject Event<Object> eventBus;
+	
+	@Schedule(second="*/3", minute="*", hour="*", dayOfWeek="*", persistent=false)
+	public void sendSomething() {
+		log.info("Send something!");
+		eventBus.fire(new Booking(5.0));
+		eventBus.fire(new Notify(new Date()));
+	}
+
+p. Problem is, the event handler is never called:
+
+bc. 	public void logBooking(@Observes Booking booking) {
+		log.info("Got booking " + booking);
+	}
+
+Because the EventBus implementation is @Event<Object>@, and @Object@ as declared is
+not assignable to @Booking@.
+
+However, the object passed to @fire()@ is a @Booking@, so the observer is actually able able
+to handle it.
+
+So it's impossible to this:
+
+bc. @Inject Event<Document> eventBus;
+
+and expect this to work:
+
+bc. eventBus.fire(new SpreadsheetDocument());
+
+There's no way to specialize the event? (other than explicitly typing the event, hence limiting
+ability to fire events dynamically.)
